@@ -1,3 +1,3 @@
 class Serviceprovider < ApplicationRecord
-  // add validations here
+  #  add validations here
 end
