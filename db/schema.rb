@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200328145903) do
+ActiveRecord::Schema.define(version: 20200328204659) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,27 @@ ActiveRecord::Schema.define(version: 20200328145903) do
     t.datetime "updated_at",    null: false
   end
 
+  create_table "orderitems", force: :cascade do |t|
+    t.string   "name"
+    t.float    "quantity"
+    t.float    "price"
+    t.integer  "order_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_orderitems_on_order_id", using: :btree
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.float    "price"
+    t.string   "status"
+    t.integer  "consumer_id"
+    t.integer  "serviceprovider_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.index ["consumer_id"], name: "index_orders_on_consumer_id", using: :btree
+    t.index ["serviceprovider_id"], name: "index_orders_on_serviceprovider_id", using: :btree
+  end
+
   create_table "serviceproviders", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
@@ -38,8 +59,23 @@ ActiveRecord::Schema.define(version: 20200328145903) do
     t.string   "area"
     t.string   "city"
     t.string   "state"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "type_of_service"
   end
 
+  create_table "services", force: :cascade do |t|
+    t.string   "name"
+    t.float    "price"
+    t.string   "unit"
+    t.float    "max_order_limt"
+    t.string   "out_of_stock"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.integer  "serviceprovider_id"
+  end
+
+  add_foreign_key "orderitems", "orders"
+  add_foreign_key "orders", "consumers"
+  add_foreign_key "orders", "serviceproviders"
 end

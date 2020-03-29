@@ -17,6 +17,20 @@ module Api
         end
       end
 
+      def show_serviceproviders
+        consumer = Consumer.find(params[:consumer_id])
+        serviceproviders = Serviceprovider.all
+        available_providers = serviceproviders.select{|provider| 
+          provider[:type_of_service].eql?(params[:type_of_service]) && provider[:area].eql?(consumer.area)}
+        render json: {status:'SUCCESS', message:'Fetched available providers',data:available_providers}, status: :ok
+      end
+
+      def get_orders
+        consumer = Consumer.find(params[:id])
+        orders = consumer.orders
+        render json: {status:'SUCCESS', message:'Found all orders by consumer',data:orders}, status: :ok
+      end
+      
       def show
         consumer = Consumer.find(params[:id])
         render json: {status:'SUCCESS', message:'Found consumer',data:consumer}, status: :ok

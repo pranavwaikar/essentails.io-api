@@ -22,6 +22,18 @@ module Api
         render json: {status:'SUCCESS', message:'Found serviceprovider',data:serviceprovider}, status: :ok
       end
 
+      def show_my_services
+        serviceprovider = Serviceprovider.find(params[:id])
+        services = serviceprovider.services
+        render json: {status:'SUCCESS', message:'Found all services by serviceprovider',data:services}, status: :ok
+      end
+
+      def get_orders
+        serviceprovider = Serviceprovider.find(params[:id])
+        orders = serviceprovider.orders
+        render json: {status:'SUCCESS', message:'Found all orders by serviceprovider',data:orders}, status: :ok
+      end
+
       def update
         serviceprovider = Serviceprovider.find(params[:id])
         if (serviceprovider.update_attributes(serviceprovider_params))
@@ -40,7 +52,7 @@ module Api
 
       private
       def serviceprovider_params
-        params.permit(:name,:email,:phone_number,:password,:area,:city,:state)
+        params.permit(:name,:email,:phone_number,:password,:area,:city,:state,:type_of_service)
       end
 
     end
