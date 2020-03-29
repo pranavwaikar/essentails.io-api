@@ -26,7 +26,7 @@ module Api
 
       def update
         order = Order.find(params[:id])
-        if (order.update_attributes(consumer_params))
+        if (order.update_attributes(order_params))
           render json: {status:'SUCCESS', message:'updated order',data:order}, status: :ok
         else
           render json: {status:'SUCCESS', message:'Failed to update order',

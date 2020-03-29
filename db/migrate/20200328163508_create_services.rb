@@ -4,7 +4,7 @@ class CreateServices < ActiveRecord::Migration[5.0]
       t.string :name
       t.float :price
       t.string :unit
-      t.float :max_order_limt
+      t.float :max_order_limit
       t.string :out_of_stock
       t.timestamps
     end

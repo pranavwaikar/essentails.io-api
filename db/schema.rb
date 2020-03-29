@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 20200328204659) do
     t.string   "name"
     t.float    "price"
     t.string   "unit"
-    t.float    "max_order_limt"
+    t.float    "max_order_limit"
     t.string   "out_of_stock"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
